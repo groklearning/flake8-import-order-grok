@@ -7,6 +7,10 @@ from setuptools import setup
 
 setup(
     name='flake8-grok',
+    version='0.1',
+    packages=[
+        'flake8_grok',
+    ],
     install_requires=[
         'flake8-import-order',
     ],
