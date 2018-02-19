@@ -2,19 +2,13 @@
 # coding: utf-8
 from __future__ import absolute_import, print_function, unicode_literals
 
-from flake8_import_order import (
-    IMPORT_3RD_PARTY,
-    IMPORT_APP,
-    IMPORT_APP_RELATIVE,
-    IMPORT_FUTURE,
-    IMPORT_STDLIB,
-)
+from flake8_import_order import ImportType
 from flake8_import_order.styles import Style
 
 __all__ = ['GrokImportOrderStyle']
 
 NAME_TYPE_CONSTANT, NAME_TYPE_CLASS, NAME_TYPE_FUNCTION = range(3)
-RELATIVE_SET = {IMPORT_APP, IMPORT_APP_RELATIVE}
+RELATIVE_SET = {ImportType.APPLICATION, ImportType.APPLICATION_RELATIVE}
 
 
 def sort_name_key(name):
@@ -49,12 +43,12 @@ class GrokImportOrderStyle(Style):
     @staticmethod
     def import_key(import_):
         package = None if import_.package is None else import_.package.lower()
-        if import_.type in (IMPORT_FUTURE, IMPORT_STDLIB):
+        if import_.type in (ImportType.FUTURE, ImportType.STDLIB):
             return (
-                IMPORT_FUTURE, import_.type, package, import_.is_from,
+                ImportType.FUTURE, import_.type, package, import_.is_from,
                 import_.level, import_.modules, import_.names,
             )
-        elif import_.type in {IMPORT_3RD_PARTY}:
+        elif import_.type in {ImportType.THIRD_PARTY}:
             django_first = 0 if import_.package == 'django' else 1
             return (
                 import_.type, django_first, package, import_.is_from,
@@ -68,10 +62,10 @@ class GrokImportOrderStyle(Style):
 
     @staticmethod
     def same_section(previous, current):
-        if previous.type == IMPORT_FUTURE and current.type == IMPORT_STDLIB:
+        if previous.type == ImportType.FUTURE and current.type == ImportType.STDLIB:
             return True
 
-        app_or_third = current.type in {IMPORT_3RD_PARTY, IMPORT_APP}
+        app_or_third = current.type in {ImportType.THIRD_PARTY, ImportType.APPLICATION}
         same_type = current.type == previous.type
         both_relative = {previous.type, current.type} <= RELATIVE_SET
         same_package = previous.package == current.package
