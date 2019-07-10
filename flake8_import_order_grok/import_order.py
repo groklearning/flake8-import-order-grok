@@ -1,11 +1,10 @@
-# vim: set et nosi ai ts=2 sts=2 sw=2:
 # coding: utf-8
 from __future__ import absolute_import, print_function, unicode_literals
 
 from flake8_import_order import ImportType
 from flake8_import_order.styles import Style
 
-__all__ = ['GrokImportOrderStyle']
+__all__ = ["GrokImportOrderStyle"]
 
 NAME_TYPE_CONSTANT, NAME_TYPE_CLASS, NAME_TYPE_FUNCTION = range(3)
 RELATIVE_SET = {ImportType.APPLICATION, ImportType.APPLICATION_RELATIVE}
@@ -40,24 +39,39 @@ class GrokImportOrderStyle(Style):
     4. third-party, grouped by package
     5. grok
     """
+
     @staticmethod
     def import_key(import_):
         package = None if import_.package is None else import_.package.lower()
         if import_.type in (ImportType.FUTURE, ImportType.STDLIB):
             return (
-                ImportType.FUTURE, import_.type, package, import_.is_from,
-                import_.level, import_.modules, import_.names,
+                ImportType.FUTURE,
+                import_.type,
+                package,
+                import_.is_from,
+                import_.level,
+                import_.modules,
+                import_.names,
             )
         elif import_.type in {ImportType.THIRD_PARTY}:
-            django_first = 0 if import_.package == 'django' else 1
+            django_first = 0 if import_.package == "django" else 1
             return (
-                import_.type, django_first, package, import_.is_from,
-                import_.level, import_.modules, import_.names,
+                import_.type,
+                django_first,
+                package,
+                import_.is_from,
+                import_.level,
+                import_.modules,
+                import_.names,
             )
         else:
             return (
-                import_.type, package, import_.is_from,
-                import_.level, import_.modules, import_.names,
+                import_.type,
+                package,
+                import_.is_from,
+                import_.level,
+                import_.modules,
+                import_.names,
             )
 
     @staticmethod
@@ -69,9 +83,8 @@ class GrokImportOrderStyle(Style):
         same_type = current.type == previous.type
         both_relative = {previous.type, current.type} <= RELATIVE_SET
         same_package = previous.package == current.package
-        return (
-            (not app_or_third and same_type or both_relative) or
-            (app_or_third and same_package)
+        return (not app_or_third and same_type or both_relative) or (
+            app_or_third and same_package
         )
 
     @staticmethod
