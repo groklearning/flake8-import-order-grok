@@ -1,18 +1,26 @@
 # coding: utf-8
 from __future__ import absolute_import, print_function, unicode_literals
+import os
 
 from setuptools import setup
 
 
+def readme():
+    path = os.path.abspath(os.path.dirname(__file__))
+    with open(os.path.join(path, 'README.md'), 'rU', encoding='utf-8') as f:
+        return f.read()
+
+
 setup(
     name="flake8-import-order-grok",
-    version="0.3",
+    version="0.3.1",
     author="Grok Learning",
     author_email="opensource@groklearning.com",
     description="Grok Learning's flake8-import-order plugin.",
-    long_description="file: README.md",
+    long_description=readme(),
+    long_description_content_type="text/markdown",
     keywords="flake8-import-order grok",
-    licence="MIT",
+    license="MIT",
     url="https://github.com/groklearning/flake8-import-order-grok",
     packages=["flake8_import_order_grok"],
     python_requires=">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*",
