@@ -16,11 +16,12 @@ def sort_name_key(name):
     underscore_case.
     """
     if name.isupper():
-        return NAME_TYPE_CLASS if len(name) == 1 else NAME_TYPE_CONSTANT
+        name_type = NAME_TYPE_CLASS if len(name) == 1 else NAME_TYPE_CONSTANT
     elif name.islower():
-        return NAME_TYPE_FUNCTION
+        name_type = NAME_TYPE_FUNCTION
     else:
-        return NAME_TYPE_CLASS if name[0].isupper() else NAME_TYPE_FUNCTION
+        name_type = NAME_TYPE_CLASS if name[0].isupper() else NAME_TYPE_FUNCTION
+    return (name_type, name)
 
 
 class GrokImportOrderStyle(Style):
@@ -47,7 +48,7 @@ class GrokImportOrderStyle(Style):
             return (
                 ImportType.FUTURE,
                 import_.type,
-                package,
+                package or "",
                 import_.is_from,
                 import_.level,
                 import_.modules,
@@ -58,7 +59,7 @@ class GrokImportOrderStyle(Style):
             return (
                 import_.type,
                 django_first,
-                package,
+                package or "",
                 import_.is_from,
                 import_.level,
                 import_.modules,
@@ -67,7 +68,7 @@ class GrokImportOrderStyle(Style):
         else:
             return (
                 import_.type,
-                package,
+                package or "",
                 import_.is_from,
                 import_.level,
                 import_.modules,
