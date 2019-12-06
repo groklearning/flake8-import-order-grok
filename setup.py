@@ -1,5 +1,6 @@
 # coding: utf-8
 from __future__ import absolute_import, print_function, unicode_literals
+import codecs
 import os
 
 from setuptools import setup
@@ -7,7 +8,7 @@ from setuptools import setup
 
 def readme():
     path = os.path.abspath(os.path.dirname(__file__))
-    with open(os.path.join(path, 'README.md'), 'rU', encoding='utf-8') as f:
+    with codecs.open(os.path.join(path, 'README.md'), 'rU', encoding='utf-8') as f:
         return f.read()
 
 
