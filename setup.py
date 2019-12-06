@@ -14,7 +14,7 @@ def readme():
 
 setup(
     name="flake8-import-order-grok",
-    version="0.3.2",
+    version="0.3.3",
     author="Grok Learning",
     author_email="opensource@groklearning.com",
     description="Grok Learning's flake8-import-order plugin.",
