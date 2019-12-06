@@ -13,7 +13,7 @@ def readme():
 
 setup(
     name="flake8-import-order-grok",
-    version="0.3.1",
+    version="0.3.2",
     author="Grok Learning",
     author_email="opensource@groklearning.com",
     description="Grok Learning's flake8-import-order plugin.",
@@ -27,8 +27,8 @@ setup(
     install_requires=["flake8-import-order>=0.18"],
     entry_points={
         "flake8_import_order.styles": [
-            "grok = flake8_import_order_grok:GrokImportOrderStyle"
-        ]
+            "grok = flake8_import_order_grok:GrokImportOrderStyle",
+        ],
     },
     classifiers=[
         "Development Status :: 5 - Production/Stable",
